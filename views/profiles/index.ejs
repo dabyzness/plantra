@@ -1,0 +1,13 @@
+<%- include('../partials/html-head') %> <%- include('../partials/nav') %>
+
+<main>
+  <p><%= profile.name %></p>
+  <p>Plants</p>
+  <ul>
+    <% profile.plants.forEach(plant => { %>
+    <li><%= plant.name %></li>
+    <% }) %>
+  </ul>
+</main>
+
+<%- include('../partials/footer') %>
