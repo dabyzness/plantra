@@ -1,16 +1,24 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
+import { Plant } from "./plant.js";
 
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
 
-const profileSchema = new Schema({
-  name: String,
-  avatar: String,
-}, {
-  timestamps: true
-})
+const personalPlantSchema = new Schema({
+  plant: { type: Schema.Types.ObjectId, ref: "Plant" },
+  nickname: { type: String, trim: true, maxLength: 25 },
+});
 
-const Profile = mongoose.model('Profile', profileSchema)
+const profileSchema = new Schema(
+  {
+    name: String,
+    avatar: String,
+    plants: [personalPlantSchema],
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export {
-  Profile
-}
+const Profile = mongoose.model("Profile", profileSchema);
+
+export { Profile };
