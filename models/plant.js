@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import { plantTypes } from "../data/plantTypes.js";
 
-const Schema = mongoose.Schema();
+const Schema = mongoose.Schema;
 
 const plantSchema = new Schema(
   {
@@ -12,10 +13,15 @@ const plantSchema = new Schema(
       type: String,
       required: true,
     },
+    type: {
+      type: String,
+      enum: plantTypes,
+      required: true,
+    },
   },
   { timestamps: true }
 );
 
-const Plant = mongoose.Model("Plant", plantSchema);
+const Plant = mongoose.model("Plant", plantSchema);
 
 export { Plant };

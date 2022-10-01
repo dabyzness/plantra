@@ -1,0 +1,22 @@
+<%- include('../partials/html-head') %> <%- include('../partials/nav') %>
+
+<main>
+  <form action="/plants" method="post">
+    <label for="plantName">Name: </label>
+    <input type="text" name="name" id="plantName" required />
+
+    <label for="scientificName">Scientific Name: </label>
+    <input type="text" name="scientificName" id="scientificName" required />
+
+    <label for="classification">Type: </label>
+    <select name="type" id="classification">
+      <% types.sort((a,b) => a > b ? 1 : -1).forEach(type => { %>
+      <option value="<%= type %>"><%= type %></option>
+      <% }) %>
+    </select>
+
+    <button type="submit">Add Plant</button>
+  </form>
+</main>
+
+<%- include('../partials/footer') %>
