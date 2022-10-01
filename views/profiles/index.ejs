@@ -3,9 +3,10 @@
 <main>
   <p><%= profile.name %></p>
   <p>Plants</p>
+  <a href="/profiles/<%= profile._id %>/plants">Add plant to collection</a>
   <ul>
     <% profile.plants.forEach(plant => { %>
-    <li><%= plant.name %></li>
+    <li><%= plant.plant.name %></li>
     <% }) %>
   </ul>
 </main>

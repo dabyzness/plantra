@@ -1,0 +1,19 @@
+<%- include('../partials/html-head') %> <%- include('../partials/nav') %>
+
+<main>
+  <form action="/profiles/<%= profile._id %>?_method=PUT" method="post">
+    <label for="plantNickname">Nickname: </label>
+    <input type="text" name="nickname" id="plantNickname" />
+
+    <label for="plant">Choose Plant</label>
+    <select name="plant" id="plant">
+      <% allPlants.forEach(plant => { %>
+      <option value="<%= plant._id %>"><%= plant.name %></option>
+      <% }) %>
+    </select>
+
+    <button type="submit">Add Plant</button>
+  </form>
+</main>
+
+<%- include('../partials/footer') %>

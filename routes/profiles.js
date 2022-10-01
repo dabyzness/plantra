@@ -6,4 +6,12 @@ const router = Router();
 
 router.get("/", isLoggedIn, profilesCtrl.index);
 
+router.get(
+  "/:profileId/plants",
+  isLoggedIn,
+  profilesCtrl.addPlantToCollectionView
+);
+
+router.put("/:profileId", isLoggedIn, profilesCtrl.addPlantToCollection);
+
 export { router };
