@@ -19,6 +19,9 @@
   <div class="tile-container">
     <% profile.plants.forEach(plant => { %>
     <div class="tile">
+      <a href="/profiles/<%= profile.username %>/plants/<%= plant._id %>"
+        ><%= plant.nickname %></a
+      >
       <%= plant.plant.name %>
       <form
         action="/profiles/<%= profile.username %>/water/<%= plant._id %>?_method=PATCH"

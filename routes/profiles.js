@@ -12,6 +12,8 @@ router.get(
   profilesCtrl.addPlantToCollectionView
 );
 
+router.get("/:username/plants/:plantId", isLoggedIn, profilesCtrl.view);
+
 router.put("/:username", isLoggedIn, profilesCtrl.addPlantToCollection);
 
 router.put("/:username/newProfile", isLoggedIn, profilesCtrl.create);

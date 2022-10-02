@@ -100,10 +100,33 @@ function create(req, res) {
     });
 }
 
+function view(req, res) {
+  console.log("PARAMS", req.params);
+  Profile.findOne({ username: req.params.username })
+    .populate({
+      path: "plants",
+      populate: {
+        path: "plant",
+      },
+    })
+    .then((profile) => {
+      const plant = profile.plants.id(req.params.plantId);
+      res.render("profiles/viewPlant", {
+        title: plant.nickname || plant.plant.name,
+        plant,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect(`/profiles/${profile.username}`);
+    });
+}
+
 export {
   index,
   addPlantToCollectionView,
   addPlantToCollection,
   waterPlant,
   create,
+  view,
 };

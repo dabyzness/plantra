@@ -1,0 +1,23 @@
+<%- include('../partials/html-head') %> <%- include('../partials/nav') %>
+
+<main>
+  <h1><%= plant.plant.name %></h1>
+
+  <% if (plant.nickname) { %>
+
+  <h2><%= plant.nickname %></h2>
+
+  <% } %>
+
+  <p>is Watered: <%= plant.isWatered %></p>
+  <p>Next Watering: <%= plant.nextWater %></p>
+  <p>
+    Watering Schedule: Every <%= plant.wateringSchedule %> <%=
+    plant.wateringSchedule === 1 ? 'day' : 'days' %>
+  </p>
+
+  <h3>Notes</h3>
+  <span>New Note:</span>
+</main>
+
+<%- include('../partials/footer') %>
