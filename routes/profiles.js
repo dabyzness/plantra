@@ -14,4 +14,10 @@ router.get(
 
 router.put("/:profileId", isLoggedIn, profilesCtrl.addPlantToCollection);
 
+router.patch(
+  "/:profileId/water/:plantIdInColl",
+  isLoggedIn,
+  profilesCtrl.waterPlant
+);
+
 export { router };

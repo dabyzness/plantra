@@ -61,4 +61,29 @@ function addPlantToCollection(req, res) {
     });
 }
 
-export { index, addPlantToCollectionView, addPlantToCollection };
+function waterPlant(req, res) {
+  Profile.findById(req.params.profileId)
+    .populate("plants")
+    .then((profile) => {
+      profile.plants[
+        profile.plants.findIndex((plant) =>
+          plant._id.equals(req.params.plantIdInColl)
+        )
+      ].isWatered = true;
+      profile
+        .save()
+        .then(() => {
+          res.redirect(`/profiles`);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.redirect(`/profiles`);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect(`/profiles`);
+    });
+}
+
+export { index, addPlantToCollectionView, addPlantToCollection, waterPlant };

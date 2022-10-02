@@ -6,7 +6,22 @@
   <a href="/profiles/<%= profile._id %>/plants">Add plant to collection</a>
   <ul>
     <% profile.plants.forEach(plant => { %>
-    <li><%= plant.plant.name %></li>
+    <li>
+      <%= plant.plant.name %>
+      <form
+        action="/profiles/<%= profile._id %>/water/<%= plant._id %>?_method=PATCH"
+        method="post"
+      >
+        <button type="submit">WATER</button>
+      </form>
+
+      <!-- <a
+        href="/profiles/<%= profile._id %>/water/<%= plant._id %>?_method=PATCH"
+        >WATER</a
+      > -->
+
+      <p>IS WATERED: <%= plant.isWatered %></p>
+    </li>
     <% }) %>
   </ul>
 </main>
