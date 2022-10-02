@@ -4,18 +4,20 @@ import * as profilesCtrl from "../controllers/profiles.js";
 
 const router = Router();
 
-router.get("/", isLoggedIn, profilesCtrl.index);
+router.get("/:username", isLoggedIn, profilesCtrl.index);
 
 router.get(
-  "/:profileId/plants",
+  "/:username/plants",
   isLoggedIn,
   profilesCtrl.addPlantToCollectionView
 );
 
-router.put("/:profileId", isLoggedIn, profilesCtrl.addPlantToCollection);
+router.put("/:username", isLoggedIn, profilesCtrl.addPlantToCollection);
+
+router.put("/:username/newProfile", isLoggedIn, profilesCtrl.create);
 
 router.patch(
-  "/:profileId/water/:plantIdInColl",
+  "/:username/water/:plantIdInColl",
   isLoggedIn,
   profilesCtrl.waterPlant
 );

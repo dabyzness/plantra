@@ -9,7 +9,7 @@ const personalPlantSchema = new Schema({
   wateringSchedule: {
     type: Number,
     min: 0,
-    max: 30,
+    max: 28,
     default: 7,
   },
   isWatered: {
@@ -28,6 +28,13 @@ const profileSchema = new Schema(
   {
     name: String,
     avatar: String,
+    username: {
+      type: String,
+      minLength: 3,
+      maxLength: 25,
+      lowercase: true,
+      unique: true,
+    },
     plants: [personalPlantSchema],
   },
   {

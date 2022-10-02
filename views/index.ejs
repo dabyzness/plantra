@@ -1,16 +1,90 @@
-<%- include('./partials/html-head') %>
-<%- include('./partials/nav') %>
+<%- include('./partials/html-head') %> <%- include('./partials/nav') %>
 
 <main>
-  <h1>hello, <%= user ? user.profile.name : "friend" %></h1>
+  <% if (!user) { %>
+
+  <div class="login">
+    <!-- Website Name -->
+    <!-- LOGO -->
+    <!-- LOGIN BUTTON -->
+    <!-- MAYBE GUEST BUTTON -->
+    HELLO USER
+  </div>
+
+  <% } else if(!user.profile.username) { %>
+
+  <p><%= user %> <-- Username</p>
+
+  <h1>Thank you for signing up for Plantra!</h1>
+  <h2>Let's get you started with your profile:</h2>
+
+  <form
+    action="/profiles/<%= user.profile._id %>/newProfile?_method=PUT"
+    method="post"
+  >
+    <label for="username">Username</label>
+    <input
+      type="text"
+      name="username"
+      id="username"
+      minLength="3"
+      maxLength="25"
+      placeholder="Enter Username"
+    />
+
+    <label for="bio">Bio</label>
+    <textarea
+      name="bio"
+      id="bio"
+      cols="20"
+      rows="4"
+      placeholder="Tell us a little bit about yourself"
+    ></textarea>
+
+    <label for="zone">Plant Hardiness Zone</label>
+    <select name="zone" id="zone">
+      <option value="1a">1a</option>
+      <option value="1b">1b</option>
+      <option value="2a">2a</option>
+      <option value="2b">2b</option>
+      <option value="3a">3a</option>
+      <option value="3b">3b</option>
+      <option value="4a">4a</option>
+      <option value="4b">4b</option>
+      <option value="5a">5a</option>
+      <option value="5b">5b</option>
+      <option value="6a">6a</option>
+      <option value="6b">6b</option>
+      <option value="7a">7a</option>
+      <option value="7b">7b</option>
+      <option value="8a">8a</option>
+      <option value="8b">8b</option>
+      <option value="9a">9a</option>
+      <option value="9b">9b</option>
+      <option value="10a">10a</option>
+      <option value="10b">10b</option>
+      <option value="11a">11a</option>
+      <option value="11b">11b</option>
+      <option value="12a">12a</option>
+      <option value="12b">12b</option>
+      <option value="13a">13a</option>
+      <option value="13b">13b</option>
+    </select>
+
+    <button type="submit">Create Profile</button>
+  </form>
+
+  <% } else { %>
+
+  <h1>hello, <%= user.profile.username %></h1>
   <% if (user?.profile.avatar) { %>
-    <div>
-      <img
-        src="<%= user.profile.avatar %>"
-        alt="<%= user.profile.name %> avatar"
-      />
-    </div>
-  <% } %>
+  <div>
+    <img
+      src="<%= user.profile.avatar %>"
+      alt="<%= user.profile.name %> avatar"
+    />
+  </div>
+  <% } %> <% } %>
 </main>
 
 <%- include('./partials/footer') %>

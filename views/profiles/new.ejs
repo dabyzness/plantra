@@ -1,7 +1,7 @@
 <%- include('../partials/html-head') %> <%- include('../partials/nav') %>
 
 <main>
-  <form action="/profiles/<%= profile._id %>?_method=PUT" method="post">
+  <form action="/profiles/<%= profile.username %>?_method=PUT" method="post">
     <label for="plantNickname">Nickname:</label>
     <input type="text" name="nickname" id="plantNickname" />
 

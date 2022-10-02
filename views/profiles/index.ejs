@@ -1,29 +1,41 @@
 <%- include('../partials/html-head') %> <%- include('../partials/nav') %>
 
 <main>
-  <p><%= profile.name %></p>
+  <div class="profile-container">
+    <img
+      class="profile-picture"
+      src="<%= profile.avatar %>"
+      alt="profile-picture"
+    />
+    <span><%= profile.name %></span>
+    <!-- Add Bio field -->
+    <!-- Add Zone -->
+    <p><%= profile.plants.length %> Plants</p>
+  </div>
+
   <p>Plants</p>
-  <a href="/profiles/<%= profile._id %>/plants">Add plant to collection</a>
-  <ul>
+  <a href="/profiles/<%= profile.username %>/plants">Add plant to collection</a>
+
+  <div class="tile-container">
     <% profile.plants.forEach(plant => { %>
-    <li>
+    <div class="tile">
       <%= plant.plant.name %>
       <form
-        action="/profiles/<%= profile._id %>/water/<%= plant._id %>?_method=PATCH"
+        action="/profiles/<%= profile.username %>/water/<%= plant._id %>?_method=PATCH"
         method="post"
       >
         <button type="submit">WATER</button>
       </form>
 
       <!-- <a
-        href="/profiles/<%= profile._id %>/water/<%= plant._id %>?_method=PATCH"
-        >WATER</a
-      > -->
+          href="/profiles/<%= profile._id %>/water/<%= plant._id %>?_method=PATCH"
+          >WATER</a
+        > -->
 
       <p>IS WATERED: <%= plant.isWatered %></p>
-    </li>
+    </div>
     <% }) %>
-  </ul>
+  </div>
 </main>
 
 <%- include('../partials/footer') %>

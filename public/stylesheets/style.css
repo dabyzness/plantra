@@ -15,8 +15,8 @@ body {
   background-color: #1a1a1a;
   color: #f6f6f6;
   /* Use a system font, if none are available use any found sans-sarif font */
-  font-family: system-ui, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 
-    'Helvetica Neue', sans-serif;
+  font-family: system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+    "Helvetica Neue", sans-serif;
   margin: 0;
 }
 
@@ -38,4 +38,17 @@ main {
 
 .right {
   margin-left: auto;
+}
+
+.tile-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 20px;
+  gap: 20px;
+}
+
+.tile {
+  background-color: white;
+  color: black;
 }

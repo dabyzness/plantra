@@ -2,7 +2,7 @@ import { Profile } from "../models/profile.js";
 import { Plant } from "../models/plant.js";
 
 function index(req, res) {
-  Profile.findById(req.user.profile._id)
+  Profile.findOne({ username: req.params.username })
     .populate({
       path: "plants",
       populate: {
@@ -10,7 +10,6 @@ function index(req, res) {
       },
     })
     .then((profile) => {
-      console.log(JSON.stringify(profile.plants));
       res.render("profiles/index", { title: "Your Profile", profile });
     })
     .catch((err) => {
@@ -20,7 +19,7 @@ function index(req, res) {
 }
 
 function addPlantToCollectionView(req, res) {
-  Profile.findById(req.params.profileId)
+  Profile.findOne({ username: req.params.username })
     .then((profile) => {
       Plant.find({})
         .then((allPlants) => {
@@ -32,37 +31,37 @@ function addPlantToCollectionView(req, res) {
         })
         .catch((err) => {
           console.log(err);
-          res.redirect("/profiles");
+          res.redirect(`/profiles/${profile.username}`);
         });
     })
     .catch((err) => {
       console.log(err);
-      res.redirect("/profiles");
+      res.redirect(`/profiles/${req.params.username}`);
     });
 }
 
 function addPlantToCollection(req, res) {
-  Profile.findById(req.params.profileId)
+  Profile.findOne({ username: req.params.username })
     .then((profile) => {
       profile.plants.push(req.body);
       profile
         .save()
         .then(() => {
-          res.redirect(`/profiles/${profile._id}/plants`);
+          res.redirect(`/profiles/${profile.username}/plants`);
         })
         .catch((err) => {
           console.log(err);
-          res.redirect("/profiles");
+          res.redirect(`/profiles/${profile.username}`);
         });
     })
     .catch((err) => {
       console.log(err);
-      res.redirect("/profiles");
+      res.redirect(`/profiles/${req.params.username}`);
     });
 }
 
 function waterPlant(req, res) {
-  Profile.findById(req.params.profileId)
+  Profile.findOne({ username: req.params.username })
     .populate("plants")
     .then((profile) => {
       profile.plants[
@@ -73,17 +72,38 @@ function waterPlant(req, res) {
       profile
         .save()
         .then(() => {
-          res.redirect(`/profiles`);
+          res.redirect(`/profiles/${profile.username}`);
         })
         .catch((err) => {
           console.log(err);
-          res.redirect(`/profiles`);
+          res.redirect(`/profiles/${profile.username}`);
         });
     })
     .catch((err) => {
       console.log(err);
-      res.redirect(`/profiles`);
+      res.redirect(`/profiles/${req.params.username}`);
     });
 }
 
-export { index, addPlantToCollectionView, addPlantToCollection, waterPlant };
+function create(req, res) {
+  if (!req.user.profile._id.equals(req.params.profileId)) {
+    res.redirect("/");
+  }
+
+  Profile.findOneAndUpdate({ _id: req.params.profileId }, req.body)
+    .then((profile) => {
+      res.redirect("/");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect("/");
+    });
+}
+
+export {
+  index,
+  addPlantToCollectionView,
+  addPlantToCollection,
+  waterPlant,
+  create,
+};
