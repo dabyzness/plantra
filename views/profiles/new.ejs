@@ -2,8 +2,19 @@
 
 <main>
   <form action="/profiles/<%= profile._id %>?_method=PUT" method="post">
-    <label for="plantNickname">Nickname: </label>
+    <label for="plantNickname">Nickname:</label>
     <input type="text" name="nickname" id="plantNickname" />
+
+    <label for="wateringSchedule">Set a watering schedule:</label>
+    <select name="wateringSchedule" id="wateringSchedule">
+      <% [1,2,3,4,5,6,7,8,9,10].forEach(day => { %>
+      <option value="<%= day %>">
+        <%= day > 1 ? `${day} days` : `${day} day` %>
+      </option>
+      <% }) %> <% [14, 21, 28].forEach(day => { %>
+      <option value="<%= day %>"><%= `${day/7} weeks` %></option>
+      <% }) %>
+    </select>
 
     <label for="plant">Choose Plant</label>
     <select name="plant" id="plant">
