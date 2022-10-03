@@ -6,7 +6,8 @@
   <nav>
     <% if (user) { %>
 
-      <a href="/profiles/<%= user.profile.username %>"><%= user.profile.username %> </a>
+      <a href="/profiles/<%= user?.profile.username %>"><%= user?.profile.username %> </a>
+
       <a href="/plants/new">ADD PLANT</a>
       <a href="/auth/logout" class="right">
         <button type="submit">Logout</button>

@@ -89,9 +89,12 @@ function create(req, res) {
   if (!req.user.profile._id.equals(req.params.profileId)) {
     res.redirect("/");
   }
+  console.log(req.params.profileId);
+  console.log(req.body);
 
   Profile.findOneAndUpdate({ _id: req.params.profileId }, req.body)
     .then((profile) => {
+      console.log(profile);
       res.redirect("/");
     })
     .catch((err) => {
@@ -101,7 +104,6 @@ function create(req, res) {
 }
 
 function view(req, res) {
-  console.log("PARAMS", req.params);
   Profile.findOne({ username: req.params.username })
     .populate({
       path: "plants",
@@ -118,7 +120,33 @@ function view(req, res) {
     })
     .catch((err) => {
       console.log(err);
-      res.redirect(`/profiles/${profile.username}`);
+      res.redirect(`/profiles/${req.params.username}`);
+    });
+}
+
+function addNote(req, res) {
+  console.log(req.body);
+
+  Profile.findOne({ username: req.params.username })
+    .populate("plants")
+    .then((profile) => {
+      const plant = profile.plants.id(req.params.plantId);
+      plant.notes.push(req.body);
+      profile
+        .save()
+        .then(() => {
+          res.redirect(`/profiles/${profile.username}/plants/${plant._id}`);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.redirect(`/profiles/${profile.username}/plants/${plant._id}`);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect(
+        `/profiles/${req.params.username}/plants/${req.params.plantId}`
+      );
     });
 }
 
@@ -129,4 +157,5 @@ export {
   waterPlant,
   create,
   view,
+  addNote,
 };

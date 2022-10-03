@@ -18,7 +18,40 @@
 
   <h3>Notes</h3>
   <span>New Note:</span>
-  <form action="" method="post"></form>
+  <form
+    action="/profiles/<%= user.profile.username %>/plants/<%= plant._id %>/addNote"
+    method="post"
+  >
+    <input type="text" name="action" id="action" placeholder="action" />
+
+    <textarea
+      name="info"
+      id="info"
+      cols="30"
+      rows="3"
+      placeholder="Information"
+    ></textarea>
+
+    <button type="submit">Add Note</button>
+  </form>
+
+  <% for(let i = plant.notes.length - 1; i >= 0; i -= 1) { %>
+
+  <div class="note-container">
+    <div class="note-head">
+      Note #<%= i + 1 %> <%= plant.notes[i].action %> on <%=
+      plant.notes[i].createdAt.toLocaleDateString() %>
+    </div>
+    <div class="note-body"><%= plant.notes[i].action.info %></div>
+    <div class="note-footer"></div>
+  </div>
+  <% } %>
+
+  <div class="note-container">
+    <div class="note-head"></div>
+    <div class="note-body"></div>
+    <div class="note-footer"></div>
+  </div>
 </main>
 
 <%- include('../partials/footer') %>

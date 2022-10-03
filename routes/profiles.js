@@ -16,7 +16,13 @@ router.get("/:username/plants/:plantId", isLoggedIn, profilesCtrl.view);
 
 router.put("/:username", isLoggedIn, profilesCtrl.addPlantToCollection);
 
-router.put("/:username/newProfile", isLoggedIn, profilesCtrl.create);
+router.put("/:profileId/newProfile", isLoggedIn, profilesCtrl.create);
+
+router.post(
+  "/:username/plants/:plantId/addNote",
+  isLoggedIn,
+  profilesCtrl.addNote
+);
 
 router.patch(
   "/:username/water/:plantIdInColl",
