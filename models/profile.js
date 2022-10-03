@@ -56,6 +56,10 @@ const profileSchema = new Schema(
       unique: true,
     },
     plants: [personalPlantSchema],
+    bio: {
+      type: String,
+      maxLength: 300,
+    },
   },
   {
     timestamps: true,

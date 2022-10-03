@@ -12,8 +12,8 @@ html {
 }
 
 body {
-  background-color: #1a1a1a;
-  color: #f6f6f6;
+  background-color: white;
+  color: black;
   /* Use a system font, if none are available use any found sans-sarif font */
   font-family: system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
     "Helvetica Neue", sans-serif;
@@ -55,4 +55,22 @@ main {
 .tile > img {
   height: 30vw;
   width: 30vw;
+}
+
+img[alt="avatar"] {
+  width: 50px;
+  height: 50px;
+}
+
+nav > img {
+  border-radius: 100%;
+}
+
+nav > form > button {
+  border: none;
+  background: none;
+}
+
+button > img {
+  border-radius: 100%;
 }

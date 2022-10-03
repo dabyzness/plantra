@@ -18,7 +18,8 @@ passport.use(
           } else {
             const newProfile = new Profile({
               name: profile.displayName,
-              avatar: profile.photos[0].value,
+              // avatar: profile.photos[0].value,
+              avatar: "/assets/images/default.jpg",
             });
             const newUser = new User({
               email: profile.emails[0].value,

@@ -4,13 +4,10 @@
 
 <main>
   <div class="profile-container">
-    <img
-      class="profile-picture"
-      src="<%= profile.avatar %>"
-      alt="profile-picture"
-    />
-    <span><%= profile.name %></span>
+    <img class="profile-picture" src="<%= profile.avatar %>" alt="avatar" />
+    <span><%= profile.username %></span>
     <!-- Add Bio field -->
+    <p class="bio"><%= profile.bio %></p>
     <!-- Add Zone -->
     <p><%= profile.plants.length %> Plants</p>
   </div>

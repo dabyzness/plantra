@@ -89,7 +89,6 @@ function create(req, res) {
   if (!req.user.profile._id.equals(req.params.profileId)) {
     res.redirect("/");
   }
-  console.log(req.params.profileId);
   console.log(req.body);
 
   Profile.findOneAndUpdate({ _id: req.params.profileId }, req.body)
