@@ -124,8 +124,6 @@ function view(req, res) {
 }
 
 function addNote(req, res) {
-  console.log(req.body);
-
   Profile.findOne({ username: req.params.username })
     .populate("plants")
     .then((profile) => {
@@ -149,6 +147,51 @@ function addNote(req, res) {
     });
 }
 
+function edit(req, res) {
+  console.log("YAYAYAYYA", req.body);
+  Profile.findOne({ username: req.params.username })
+    .then((profile) => {
+      if (req.body.username) {
+        profile.username = req.body.username;
+      } else if (req.body.bio) {
+        profile.bio = req.body.bio;
+      } else if (req.body.zone) {
+        profile.zone = req.body.zone;
+      }
+
+      profile
+        .save()
+        .then((updatedProfile) => {
+          res.redirect(`/profiles/${updatedProfile.username}`);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.redirect(`/profiles/${req.params.username}`);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect(`/profiles/${req.params.username}`);
+    });
+}
+
+function getUserInfo(req, res) {
+  Profile.findOne({ username: req.params.username })
+    .populate({
+      path: "plants",
+      populate: {
+        path: "plant",
+      },
+    })
+    .then((profile) => {
+      res.json(profile);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect("/");
+    });
+}
+
 export {
   index,
   addPlantToCollectionView,
@@ -157,4 +200,6 @@ export {
   create,
   view,
   addNote,
+  edit,
+  getUserInfo,
 };

@@ -74,3 +74,7 @@ nav > form > button {
 button > img {
   border-radius: 100%;
 }
+
+.fa-pen {
+  color: blue;
+}

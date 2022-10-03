@@ -6,6 +6,9 @@ const router = Router();
 
 router.get("/:username", isLoggedIn, profilesCtrl.index);
 
+//Possibly delete
+router.get("/:username/info", isLoggedIn, profilesCtrl.getUserInfo);
+
 router.get(
   "/:username/plants",
   isLoggedIn,
@@ -23,6 +26,8 @@ router.post(
   isLoggedIn,
   profilesCtrl.addNote
 );
+
+router.patch("/:username", isLoggedIn, profilesCtrl.edit);
 
 router.patch(
   "/:username/water/:plantIdInColl",

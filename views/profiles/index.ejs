@@ -1,13 +1,23 @@
 <%- include('../partials/html-head') %>
 <script defer src="/js/viewTile.js"></script>
+<script defer src="/js/editProfile.js"></script>
 <%- include('../partials/nav') %>
 
 <main>
   <div class="profile-container">
     <img class="profile-picture" src="<%= profile.avatar %>" alt="avatar" />
-    <span><%= profile.username %></span>
+    <span id="username"><%= profile.username %></span>
+    <% if (user.profile._id.equals(profile._id)) { %>
+    <i class="fas fa-solid fa-pen"></i>
+    <% } %>
     <!-- Add Bio field -->
-    <p class="bio"><%= profile.bio %></p>
+    <h4>
+      Bio <% if (user.profile._id.equals(profile._id)) { %>
+      <i class="fas fa-solid fa-pen"></i>
+      <% } %>
+    </h4>
+
+    <p id="bio" class="bio"><%= profile.bio %></p>
     <!-- Add Zone -->
     <p><%= profile.plants.length %> Plants</p>
   </div>
