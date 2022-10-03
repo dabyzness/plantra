@@ -1,4 +1,6 @@
-<%- include('../partials/html-head') %> <%- include('../partials/nav') %>
+<%- include('../partials/html-head') %>
+<script defer src="/js/viewTile.js"></script>
+<%- include('../partials/nav') %>
 
 <main>
   <div class="profile-container">
@@ -18,11 +20,13 @@
 
   <div class="tile-container">
     <% profile.plants.forEach(plant => { %>
-    <div class="tile">
+    <div id="<%= plant._id %>" class="tile" owner="<%= profile.username %> ">
       <a href="/profiles/<%= profile.username %>/plants/<%= plant._id %>"
         ><%= plant.nickname %></a
       >
-      <%= plant.plant.name %>
+      <p><%= plant.plant.name %></p>
+
+      <img src="<%= plant.img %>" alt="" />
       <form
         action="/profiles/<%= profile.username %>/water/<%= plant._id %>?_method=PATCH"
         method="post"
@@ -35,7 +39,7 @@
           >WATER</a
         > -->
 
-      <p>IS WATERED: <%= plant.isWatered %></p>
+      <!-- <p>IS WATERED: <%= //plant.isWatered %></p> -->
     </div>
     <% }) %>
   </div>

@@ -39,6 +39,7 @@ const personalPlantSchema = new Schema(
       },
     },
     notes: [noteSchema],
+    img: { type: String, default: "/assets/images/test.jpg" },
   },
   { timestamps: true }
 );
