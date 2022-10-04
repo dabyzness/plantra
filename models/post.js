@@ -3,6 +3,13 @@ import { Profile } from "./profile.js";
 
 const Schema = mongoose.Schema;
 
+const commentSchema = new Schema({
+  owner: { type: Schema.Types.ObjectId, ref: "Profile", required: true },
+  data: { type: String, maxLength: 300, required: true },
+  likes: { type: Number, default: 0 },
+  isEdited: { type: Boolean, default: false },
+});
+
 const postSchema = new Schema(
   {
     owner: { type: Schema.Types.ObjectId, ref: "Profile", required: true },
@@ -19,6 +26,7 @@ const postSchema = new Schema(
       type: Number,
       default: 0,
     },
+    comments: [commentSchema],
   },
   { timestamps: true }
 );

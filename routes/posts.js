@@ -10,4 +10,8 @@ router.post("/", isLoggedIn, postsCtrl.create);
 
 router.get("/:postId", isLoggedIn, postsCtrl.view);
 
+router.patch("/:postId/like", isLoggedIn, postsCtrl.like);
+
+router.patch("/:postId/comment", isLoggedIn, postsCtrl.addComment);
+
 export { router };
