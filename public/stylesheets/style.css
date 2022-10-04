@@ -1,5 +1,5 @@
 html {
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
 }
 
 /* The Universal Selector */
@@ -28,8 +28,13 @@ nav {
   color: #1a1a1a;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 10px;
   min-height: 60px;
+}
+
+.nav-item {
+  margin: 0 auto;
 }
 
 main {
@@ -40,9 +45,9 @@ main {
   flex-direction: column;
 }
 
-.right {
+/* .right {
   margin-left: auto;
-}
+} */
 
 .tile-container {
   height: 100%;
@@ -102,11 +107,15 @@ button > img {
   width: 100%;
 }
 
+/* .tab-group > li {
+  width: 49%;
+} */
+
 li > a {
-  margin-top: 1rem;
   display: block;
   text-decoration: none;
-  padding: 15px;
+  padding: 0.5rem 0 0.5rem 0;
+  /* border-radius: 2rem; */
   background: rgba(#a0b3b0, 0.25);
   color: black;
   font-size: 20px;
@@ -123,6 +132,7 @@ li > a:hover {
 }
 
 .tab-group {
+  width: 100%;
   list-style: none;
   padding: 0;
   margin: 0 0 40px 0;

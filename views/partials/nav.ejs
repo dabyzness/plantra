@@ -4,16 +4,18 @@
 </head>
 <body>
   <nav>
+    <span class="nav-item">PLANTRA</span>
     <% if (user) { %>
 
-      <form action="/profiles/<%= user?.profile.username %>" method="get">
+
+      <form class="nav-item" action="/profiles/<%= user?.profile.username %>" method="get">
         <button type="submit"><img src="<%= user?.profile.avatar %>" alt="avatar"></button>
       </form>
       <!-- <img src="<%= //user?.profile.avatar %>" alt="avatar">
       <a href="/profiles/<%= //user?.profile.username %>"><%= //user?.profile.username %> </a> -->
 
-      <a href="/plants/new">ADD PLANT</a>
-      <a href="/auth/logout" class="right">
+      <a class="nav-item" href="/plants/new">ADD PLANT</a>
+      <a class="nav-item" href="/auth/logout" class="right">
         <button type="submit">Logout</button>
       </a>
     <% } else { %>
