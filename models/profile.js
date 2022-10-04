@@ -55,11 +55,11 @@ const profileSchema = new Schema(
       lowercase: true,
       unique: true,
     },
-    plants: [personalPlantSchema],
     bio: {
       type: String,
       maxLength: 300,
     },
+    plants: [personalPlantSchema],
   },
   {
     timestamps: true,

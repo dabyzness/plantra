@@ -175,6 +175,7 @@ function edit(req, res) {
     });
 }
 
+// Possibly delete
 function getUserInfo(req, res) {
   Profile.findOne({ username: req.params.username })
     .populate({

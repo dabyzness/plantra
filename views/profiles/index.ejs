@@ -1,6 +1,7 @@
 <%- include('../partials/html-head') %>
 <script defer src="/js/viewTile.js"></script>
 <script defer src="/js/editProfile.js"></script>
+<script defer src="/js/postsPlantsTabs.js"></script>
 <%- include('../partials/nav') %>
 
 <main>
@@ -19,13 +20,37 @@
 
     <p id="bio" class="bio"><%= profile.bio %></p>
     <!-- Add Zone -->
-    <p><%= profile.plants.length %> Plants</p>
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <form
+      style="display: inline"
+      action="/profiles/<%= profile.username %>/plants"
+      method="get"
+    >
+      <p style="display: inline">
+        <%= profile.plants.length %> Plants <% if
+        (user.profile._id.equals(profile._id)) { %>
+        <button type="submit"><i class="fas fa-solid fa-plus"></i></button>
+
+        <% } %>
+      </p>
+    </form>
+
+    <span>Followers</span>
+    <span>Following</span>
   </div>
 
-  <p>Plants</p>
-  <a href="/profiles/<%= profile.username %>/plants">Add plant to collection</a>
+  <div class="posts-plants">
+    <ul class="tab-group">
+      <li class="tab"><a class="active">Posts</a></li>
+      <li class="tab"><a>Plants</a></li>
+    </ul>
+  </div>
 
-  <div class="tile-container">
+  <div class="tile-container"></div>
+
+  <div style="display: none" class="tile-container">
     <% profile.plants.forEach(plant => { %>
     <div id="<%= plant._id %>" class="tile" owner="<%= profile.username %> ">
       <a href="/profiles/<%= profile.username %>/plants/<%= plant._id %>"
@@ -40,13 +65,6 @@
       >
         <button type="submit">WATER</button>
       </form>
-
-      <!-- <a
-          href="/profiles/<%= profile._id %>/water/<%= plant._id %>?_method=PATCH"
-          >WATER</a
-        > -->
-
-      <!-- <p>IS WATERED: <%= //plant.isWatered %></p> -->
     </div>
     <% }) %>
   </div>

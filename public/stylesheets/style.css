@@ -18,6 +18,9 @@ body {
   font-family: system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
     "Helvetica Neue", sans-serif;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 nav {
@@ -30,6 +33,7 @@ nav {
 }
 
 main {
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,10 +45,19 @@ main {
 }
 
 .tile-container {
+  height: 100%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 0.5rem;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tile-container::-webkit-scrollbar {
+  display: none;
 }
 
 .tile {
@@ -60,6 +73,7 @@ main {
 img[alt="avatar"] {
   width: 50px;
   height: 50px;
+  border-radius: 100%;
 }
 
 nav > img {
@@ -77,4 +91,44 @@ button > img {
 
 .fa-pen {
   color: blue;
+}
+
+.profile-container {
+  margin-right: auto;
+  margin-left: 1rem;
+}
+
+.posts-plants {
+  width: 100%;
+}
+
+li > a {
+  margin-top: 1rem;
+  display: block;
+  text-decoration: none;
+  padding: 15px;
+  background: rgba(#a0b3b0, 0.25);
+  color: black;
+  font-size: 20px;
+  float: left;
+  width: 50%;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.5s ease;
+}
+
+li > a:hover {
+  background-color: #146e56;
+  color: white;
+}
+
+.tab-group {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px 0;
+}
+
+.active {
+  background: #1ab188;
+  color: white;
 }
