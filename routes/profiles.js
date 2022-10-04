@@ -17,6 +17,8 @@ router.get(
 
 router.get("/:username/plants/:plantId", isLoggedIn, profilesCtrl.view);
 
+router.get("/:username/calendar", isLoggedIn, profilesCtrl.viewCalendar);
+
 router.put("/:username", isLoggedIn, profilesCtrl.addPlantToCollection);
 
 router.put("/:profileId/newProfile", isLoggedIn, profilesCtrl.create);

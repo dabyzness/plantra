@@ -1,0 +1,36 @@
+<%- include('../partials/html-head') %> <%- include('../partials/nav') %>
+
+<main>
+  <h1>Today's Thirsty Plants</h1>
+
+  <% profile.plants.forEach(plant => { %> <% if
+  (Date.parse(plant.nextWater.toDateString()) <= Date.parse(new
+  Date().toDateString())) { %>
+  <div class="watering-container">
+    <div class="watering-image">
+      <img src="<%= plant.img %>" alt="avatar" />
+    </div>
+
+    <div class="watering-body">
+      <p><%= plant.plant.type %> <%= plant.plant.name %></p>
+      <p><%= plant.nickname %></p>
+      <% if (plant.nextWater.toDateString() < new Date().toDateString()) { %>
+      <p>THIRSTY</p>
+      <% } %>
+    </div>
+    <div class="watering-action">
+      <% if(plant.isWatered){ %>
+
+      <i class="fas fa-solid fa-droplet"></i>
+
+      <% } else { %>
+
+      <i class="fas fa-solid fa-check"></i>
+      <% } %>
+    </div>
+  </div>
+
+  <% } %> <% }) %>
+</main>
+
+<%- include('../partials/footer') %>

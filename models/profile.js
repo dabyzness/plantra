@@ -32,6 +32,10 @@ const personalPlantSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    lastWatered: {
+      type: Date,
+      default: new Date(),
+    },
     nextWater: {
       type: Date,
       default: function () {

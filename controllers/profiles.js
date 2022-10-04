@@ -200,6 +200,37 @@ function getUserInfo(req, res) {
     });
 }
 
+function viewCalendar(req, res) {
+  if (req.user.profile.username !== req.params.username) {
+    res.redirect("/");
+  }
+
+  Profile.findOne({ username: req.params.username })
+    .populate({
+      path: "plants",
+      populate: {
+        path: "plant",
+      },
+    })
+    .then((profile) => {
+      profile.plants.forEach((plant) => {
+        console.log(plant.nextWater.toLocaleDateString());
+        console.log(
+          plant.nextWater.toLocaleDateString() <=
+            new Date().toLocaleDateString()
+        );
+      });
+
+      console.log(new Date().toLocaleDateString());
+
+      res.render("profiles/calendar", { title: "Calendar", profile });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect("/");
+    });
+}
+
 export {
   index,
   addPlantToCollectionView,
@@ -210,4 +241,5 @@ export {
   addNote,
   edit,
   getUserInfo,
+  viewCalendar,
 };
