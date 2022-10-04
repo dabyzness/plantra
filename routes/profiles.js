@@ -37,4 +37,6 @@ router.patch(
   profilesCtrl.waterPlant
 );
 
+router.delete("/:username/plants/:plantId", isLoggedIn, profilesCtrl.delete);
+
 export { router };

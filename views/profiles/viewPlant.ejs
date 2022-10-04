@@ -15,6 +15,12 @@
     Watering Schedule: Every <%= plant.wateringSchedule %> <%=
     plant.wateringSchedule === 1 ? 'day' : 'days' %>
   </p>
+  <form
+    action="/profiles/<%= user.profile.username %>/plants/<%= plant._id %>?_method=DELETE"
+    method="post"
+  >
+    <button type="submit">Send to Plant Heaven</button>
+  </form>
 
   <h3>Notes</h3>
   <span>New Note:</span>

@@ -231,6 +231,30 @@ function viewCalendar(req, res) {
     });
 }
 
+function deletePlant(req, res) {
+  if (req.user.profile.username !== req.params.username) {
+    res.redirect("/");
+  }
+
+  Profile.findOne({ username: req.params.username })
+    .then((profile) => {
+      profile.plants.pull({ _id: req.params.plantId });
+      profile
+        .save()
+        .then(() => {
+          res.redirect(`/profiles/${profile.username}`);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.redirect(`/profiles/${profile.username}`);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect(`/profiles/${req.params.username}`);
+    });
+}
+
 export {
   index,
   addPlantToCollectionView,
@@ -242,4 +266,5 @@ export {
   edit,
   getUserInfo,
   viewCalendar,
+  deletePlant as delete,
 };
