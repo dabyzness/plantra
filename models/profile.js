@@ -60,6 +60,7 @@ const profileSchema = new Schema(
       maxLength: 300,
     },
     plants: [personalPlantSchema],
+    posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
   },
   {
     timestamps: true,

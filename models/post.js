@@ -8,7 +8,7 @@ const postSchema = new Schema(
     owner: { type: Schema.Types.ObjectId, ref: "Profile", required: true },
     img: {
       type: String,
-      default: "/assets/images/test.jpg",
+      default: "/assets/images/post.jpg",
       required: true,
     },
     description: {

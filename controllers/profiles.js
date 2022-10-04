@@ -3,12 +3,15 @@ import { Plant } from "../models/plant.js";
 
 function index(req, res) {
   Profile.findOne({ username: req.params.username })
-    .populate({
-      path: "plants",
-      populate: {
-        path: "plant",
+    .populate([
+      {
+        path: "plants",
+        populate: {
+          path: "plant",
+        },
       },
-    })
+      { path: "posts" },
+    ])
     .then((profile) => {
       res.render("profiles/index", { title: "Your Profile", profile });
     })
@@ -104,13 +107,17 @@ function create(req, res) {
 
 function view(req, res) {
   Profile.findOne({ username: req.params.username })
-    .populate({
-      path: "plants",
-      populate: {
-        path: "plant",
+    .populate([
+      {
+        path: "plants",
+        populate: {
+          path: "plant",
+        },
       },
-    })
+      { path: "posts" },
+    ])
     .then((profile) => {
+      console.log(profile);
       const plant = profile.plants.id(req.params.plantId);
       res.render("profiles/viewPlant", {
         title: plant.nickname || plant.plant.name,

@@ -48,11 +48,20 @@
     </ul>
   </div>
 
-  <div class="tile-container"></div>
+  <div class="tile-container">
+    <% profile.posts.forEach(post => { %>
+
+    <div id="<%= post._id %>" class="tile">
+      <%= console.log(post) %>
+      <img src="<%= post.img %>" alt="" />
+    </div>
+
+    <% }) %>
+  </div>
 
   <div style="display: none" class="tile-container">
     <% profile.plants.forEach(plant => { %>
-    <div id="<%= plant._id %>" class="tile" owner="<%= profile.username %> ">
+    <div id="<%= plant._id %>" class="tile" owner="<%= profile.username %>">
       <a href="/profiles/<%= profile.username %>/plants/<%= plant._id %>"
         ><%= plant.nickname %></a
       >

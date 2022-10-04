@@ -1,2 +1,12 @@
-<%- include('../partials/html-head') %> <%- include('../partials/nav') %> <%-
-include('../partials/footer') %>
+<%- include('../partials/html-head') %> <%- include('../partials/nav') %>
+
+<main>
+  <img src="/assets/images/post.jpg" alt="postPicture" />
+
+  <form action="/posts" method="post">
+    <label for="description"></label>
+    <input type="text" name="description" id="description" />
+    <button type="submit">Create Post</button>
+  </form>
+</main>
+<%- include('../partials/footer') %>
