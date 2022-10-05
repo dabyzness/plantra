@@ -7,7 +7,9 @@
   <p><%= post.descrition %></p>
 
   <form action="/posts/<%= post._id %>/like?_method=PATCH" method="post">
-    <button type="submit"><i class="fas fa-light fa-heart"></i></button>
+    <button type="submit">
+      <%= post.likes %> <i class="fas fa-light fa-heart"></i>
+    </button>
   </form>
 
   <% post.comments.forEach(comment => { %>
@@ -24,7 +26,9 @@
         action="/posts/<%= post._id %>/comment/<%= comment._id %>?_method=PATCH"
         method="post"
       >
-        <button type="submit"><i class="fas fa-light fa-heart"></i></button>
+        <button type="submit">
+          <%= comment.likes %> <i class="fas fa-light fa-heart"></i>
+        </button>
       </form>
     </div>
   </div>

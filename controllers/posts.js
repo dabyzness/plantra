@@ -53,7 +53,14 @@ function view(req, res) {
 function like(req, res) {
   Post.findById(req.params.postId)
     .then((post) => {
-      post.likes += 1;
+      if (post.likedBy.includes(req.user.profile._id)) {
+        post.likes -= 1;
+        post.likedBy.pull({ _id: req.user.profile._id });
+      } else {
+        post.likes += 1;
+        post.likedBy.push({ _id: req.user.profile._id });
+      }
+
       post
         .save()
         .then(() => {
