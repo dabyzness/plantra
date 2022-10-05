@@ -7,6 +7,7 @@ const commentSchema = new Schema({
   owner: { type: Schema.Types.ObjectId, ref: "Profile", required: true },
   data: { type: String, maxLength: 300, required: true },
   likes: { type: Number, default: 0 },
+  likedBy: [{ type: Schema.Types.ObjectId, ref: "Profile" }],
   isEdited: { type: Boolean, default: false },
 });
 
@@ -26,6 +27,7 @@ const postSchema = new Schema(
       type: Number,
       default: 0,
     },
+    likedBy: [{ type: Schema.Types.ObjectId, ref: "Profile" }],
     comments: [commentSchema],
   },
   { timestamps: true }

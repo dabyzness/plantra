@@ -18,7 +18,15 @@
         ><%= comment.owner.username %></a
       >
     </div>
-    <div class="comment-body"><%= comment.data %></div>
+    <div class="comment-body">
+      <p><%= comment.data %></p>
+      <form
+        action="/posts/<%= post._id %>/comment/<%= comment._id %>?_method=PATCH"
+        method="post"
+      >
+        <button type="submit"><i class="fas fa-light fa-heart"></i></button>
+      </form>
+    </div>
   </div>
   <% }) %>
 

@@ -14,4 +14,6 @@ router.patch("/:postId/like", isLoggedIn, postsCtrl.like);
 
 router.patch("/:postId/comment", isLoggedIn, postsCtrl.addComment);
 
+router.patch("/:postId/comment/:commentId", isLoggedIn, postsCtrl.likeComment);
+
 export { router };

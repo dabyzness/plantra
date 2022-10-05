@@ -91,4 +91,32 @@ function addComment(req, res) {
     });
 }
 
-export { newPost as new, create, view, like, addComment };
+function likeComment(req, res) {
+  Post.findById(req.params.postId)
+    .then((post) => {
+      const comment = post.comments.find((comment) =>
+        comment._id.equals(req.params.commentId)
+      );
+
+      console.log("COMMENT", comment);
+      console.log("COMMENT ID", req.params.commentId);
+
+      if (comment.likedBy.includes(req.user.profile._id)) {
+        comment.likes -= 1;
+        comment.likedBy.pull({ _id: req.user.profile._id });
+      } else {
+        comment.likes += 1;
+        comment.likedBy.push({ _id: req.user.profile._id });
+      }
+
+      post.save().then(() => {
+        res.redirect(`/posts/${post._id}`);
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect(`/posts/${req.params.postId}`);
+    });
+}
+
+export { newPost as new, create, view, like, addComment, likeComment };
