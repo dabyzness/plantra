@@ -30,6 +30,19 @@
           <%= comment.likes %> <i class="fas fa-light fa-heart"></i>
         </button>
       </form>
+      <% if (user.profile._id.equals(comment.owner._id)) { %>
+      <div class="edit">
+        <i class="fas fa-solid fa-pen"></i>
+      </div>
+
+      <!-- <div class="delete"><i class="fas fa-solid fa-trash"></i></div> -->
+      <form
+        action="/posts/<%= post._id %>/comment/<%= comment._id %>?_method=DELETE"
+        method="post"
+      >
+        <button type="submit"><i class="fas fa-solid fa-trash"></i></button>
+      </form>
+      <% } %>
     </div>
   </div>
   <% }) %>

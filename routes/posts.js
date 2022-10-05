@@ -16,4 +16,10 @@ router.patch("/:postId/comment", isLoggedIn, postsCtrl.addComment);
 
 router.patch("/:postId/comment/:commentId", isLoggedIn, postsCtrl.likeComment);
 
+router.delete(
+  "/:postId/comment/:commentId",
+  isLoggedIn,
+  postsCtrl.deleteComment
+);
+
 export { router };

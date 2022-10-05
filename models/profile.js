@@ -65,6 +65,8 @@ const profileSchema = new Schema(
     },
     plants: [personalPlantSchema],
     posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
+    followers: [{ type: Schema.Types.ObjectId, ref: "Profile" }],
+    following: [{ type: Schema.Types.ObjectId, ref: "Profile" }],
   },
   {
     timestamps: true,

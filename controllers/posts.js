@@ -126,4 +126,40 @@ function likeComment(req, res) {
     });
 }
 
-export { newPost as new, create, view, like, addComment, likeComment };
+function deleteComment(req, res) {
+  Post.findById(req.params.postId)
+    .then((post) => {
+      const comment = post.comments.find((comment) =>
+        comment._id.equals(req.params.commentId)
+      );
+
+      if (!req.user.profile._id.equals(comment.owner)) {
+        res.redirect("/");
+      }
+
+      post.comments.pull(req.params.commentId);
+      post
+        .save()
+        .then(() => {
+          res.redirect(`/posts/${post._id}`);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.redirect(`/posts/${post._id}`);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect(`/posts/${req.params.postId}`);
+    });
+}
+
+export {
+  newPost as new,
+  create,
+  view,
+  like,
+  addComment,
+  likeComment,
+  deleteComment,
+};
