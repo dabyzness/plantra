@@ -4,6 +4,8 @@ import * as profilesCtrl from "../controllers/profiles.js";
 
 const router = Router();
 
+router.post("/:username", isLoggedIn, profilesCtrl.test);
+
 router.get("/:username", isLoggedIn, profilesCtrl.index);
 
 //Possibly delete

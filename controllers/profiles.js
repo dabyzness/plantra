@@ -1,5 +1,27 @@
 import { Profile } from "../models/profile.js";
 import { Plant } from "../models/plant.js";
+import { upload } from "../services/imageUpload.js";
+
+const singleUpload = upload.single("image");
+
+function test(req, res) {
+  singleUpload(req, res, function (err) {
+    if (err) {
+      return res.json({
+        success: false,
+        errors: {
+          title: "Image Upload Error",
+          detail: err.message,
+          error: err,
+        },
+      });
+    }
+
+    console.log(req.file.location);
+
+    Profile.findOne({ username: req.params.username }).then((profile) => {});
+  });
+}
 
 function index(req, res) {
   Profile.findOne({ username: req.params.username })
@@ -92,17 +114,56 @@ function create(req, res) {
   if (!req.user.profile._id.equals(req.params.profileId)) {
     res.redirect("/");
   }
-  console.log(req.body);
 
-  Profile.findOneAndUpdate({ _id: req.params.profileId }, req.body)
-    .then((profile) => {
-      console.log(profile);
-      res.redirect("/");
-    })
-    .catch((err) => {
-      console.log(err);
-      res.redirect("/");
-    });
+  singleUpload(req, res, function (err) {
+    if (!req.file) {
+      Profile.findOneAndUpdate({ _id: req.params.profileId }, req.body)
+        .then((profile) => {
+          console.log(profile);
+          res.redirect("/");
+        })
+        .catch((err) => {
+          console.log(err);
+          res.redirect("/");
+        });
+      return;
+    }
+
+    if (err) {
+      return res.json({
+        success: false,
+        errors: {
+          title: "Image Upload Error",
+          detail: err.message,
+          error: err,
+        },
+      });
+    }
+
+    if (req.file.location) {
+      req.body.avatar = req.file.location;
+    }
+
+    Profile.findOneAndUpdate({ _id: req.params.profileId }, req.body)
+      .then((profile) => {
+        console.log(profile);
+        res.redirect("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        res.redirect("/");
+      });
+  });
+
+  // Profile.findOneAndUpdate({ _id: req.params.profileId }, req.body)
+  //   .then((profile) => {
+  //     console.log(profile);
+  //     res.redirect("/");
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //     res.redirect("/");
+  //   });
 }
 
 function view(req, res) {
@@ -267,4 +328,5 @@ export {
   getUserInfo,
   viewCalendar,
   deletePlant as delete,
+  test,
 };

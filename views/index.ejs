@@ -19,7 +19,11 @@
   <form
     action="/profiles/<%= user.profile._id %>/newProfile?_method=PUT"
     method="post"
+    enctype="multipart/form-data"
   >
+    <label for="image">Upload picture</label>
+    <input type="file" class="form-control-file" name="image" id="image" />
+
     <label for="username">Username</label>
     <input
       type="text"

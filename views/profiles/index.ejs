@@ -18,6 +18,15 @@
       <% } %>
     </h4>
 
+    <form
+      action="/profiles/<%= user.profile.username %>"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <input type="file" class="form-control-file" name="image" />
+      <button type="submit">SUBMIT</button>
+    </form>
+
     <p id="bio" class="bio"><%= profile.bio %></p>
     <!-- Add Zone -->
     <!--  -->
