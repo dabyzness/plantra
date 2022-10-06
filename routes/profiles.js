@@ -25,6 +25,8 @@ router.put("/:profileId/newProfile", isLoggedIn, profilesCtrl.create);
 
 router.put("/:username/plants/:plantId", isLoggedIn, profilesCtrl.addImage);
 
+router.put("/:username/follow", isLoggedIn, profilesCtrl.follow);
+
 router.post(
   "/:username/plants/:plantId/addNote",
   isLoggedIn,

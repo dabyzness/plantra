@@ -1,9 +1,9 @@
-const tileContainer = document.querySelector(".tile-container");
+const tilesContainer = document.querySelectorAll(".posts");
 
-tileContainer.addEventListener("click", handleClick);
+tilesContainer.addEventListener("click", handleClick);
 
 function handleClick(e) {
-  const plantId = e.target.parentElement.id;
+  const plantId = e.target.id;
 
   if (!plantId) {
     return;

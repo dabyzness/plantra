@@ -11,6 +11,20 @@
     <% if (user.profile._id.equals(profile._id)) { %>
     <i class="fas fa-solid fa-pen"></i>
     <% } %>
+
+      
+    <% if (!user.profile._id.equals(profile._id)) { %>
+
+      <% if (profile.followers.includes(user.profile._id)) { %>
+        <button>FOLLOWING</button></form>
+      <% } else { %>
+
+      <form action="/profiles/<%= profile.username %>/follow?_method=PUT" method="post"><button type="submit">FOLLOW</button></form>
+
+      <% } %>
+    <% } %>
+
+
     <!-- Add Bio field -->
     <h4>
       Bio <% if (user.profile._id.equals(profile._id)) { %>
@@ -37,9 +51,48 @@
       </p>
     </form>
 
-    <span>Followers</span>
-    <span>Following</span>
-  </div>
+    <div class="modal" id="followers-modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Followers</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body"></div>
+        </div>
+      </div>
+    </div>
+
+    <button data-bs-toggle="modal" data-bs-target="#followers-modal">
+      <%= profile.followers.length %> Followers
+    </button>
+
+    <div class="modal" id="following-modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Followers</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body"></div>
+        </div>
+      </div>
+    </div>
+
+    <button data-bs-toggle="modal" data-bs-target="#following-modal">
+      <%= profile.following.length %> Following
+    </button>
+    </div>
 
   <div class="posts-plants">
     <ul class="tab-group">

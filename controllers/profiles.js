@@ -364,6 +364,42 @@ function addImage(req, res) {
   });
 }
 
+function follow(req, res) {
+  Profile.findOne({ username: req.params.username })
+    .then((followedProfile) => {
+      followedProfile.followers.push(req.user.profile._id);
+      followedProfile
+        .save()
+        .then(() => {
+          Profile.findById(req.user.profile._id)
+            .then((followerProfile) => {
+              followerProfile.following.push(followedProfile._id);
+              followerProfile
+                .save()
+                .then(() => {
+                  res.redirect(`/profiles/${req.params.username}`);
+                })
+                .catch((err) => {
+                  console.log(err);
+                  res.redirect(`/profiles/${req.params.username}`);
+                });
+            })
+            .catch((err) => {
+              console.log(err);
+              res.redirect(`/profiles/${req.params.username}`);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.redirect(`/profiles/${req.params.username}`);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect(`/profiles/${req.params.username}`);
+    });
+}
+
 export {
   index,
   addPlantToCollectionView,
@@ -377,4 +413,5 @@ export {
   viewCalendar,
   deletePlant as delete,
   addImage,
+  follow,
 };
