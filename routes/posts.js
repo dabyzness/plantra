@@ -6,9 +6,11 @@ const router = Router();
 
 router.get("/new", isLoggedIn, postsCtrl.new);
 
-router.post("/", isLoggedIn, postsCtrl.create);
+router.get("/all/:pageNum", isLoggedIn, postsCtrl.getAllPosts);
 
 router.get("/:postId", isLoggedIn, postsCtrl.view);
+
+router.post("/", isLoggedIn, postsCtrl.create);
 
 router.patch("/:postId/like", isLoggedIn, postsCtrl.like);
 

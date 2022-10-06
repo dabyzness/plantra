@@ -1,4 +1,6 @@
-<%- include('./partials/html-head') %> <%- include('./partials/nav') %>
+<%- include('./partials/html-head') %> <% if (user?.profile.username) { %>
+<script defer src="/js/feed.js"></script>
+<% } %> <%- include('./partials/nav') %>
 
 <main>
   <% if (!user) { %>
@@ -80,12 +82,8 @@
 
   <% } else { %>
 
-  <h1>hello, <%= user.profile.username %></h1>
-  <% if (user?.profile.avatar) { %>
-  <div>
-    <img src="<%= user.profile.avatar %>" alt="avatar" />
-  </div>
-  <% } %> <% } %>
+  <div class="feed-container"></div>
+  <% } %>
 </main>
 
 <%- include('./partials/footer') %>

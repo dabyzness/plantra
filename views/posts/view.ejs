@@ -1,7 +1,7 @@
 <%- include('../partials/html-head') %> <%- include('../partials/nav') %>
 
 <main>
-  <img src="<%= post.owner.avatar %>" alt="avatar" />
+  <img class="post-image" src="<%= post.owner.avatar %>" alt="avatar" />
   <a href="/profiles/<%= post.owner.username %>"><%= post.owner.username %></a>
   <img src="<%= post.img %> " alt="postPicture" />
   <p><%= post.descrition %></p>

@@ -171,6 +171,21 @@ function deleteComment(req, res) {
     });
 }
 
+function getAllPosts(req, res) {
+  Post.find({})
+    .populate("owner", "username avatar")
+    .sort({ createdAt: -1 })
+    .skip(req.params.pageNum * 10)
+    .limit(10)
+    .then((posts) => {
+      res.json(posts);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect(`/profiles/${req.user.profile.username}`);
+    });
+}
+
 export {
   newPost as new,
   create,
@@ -179,4 +194,5 @@ export {
   addComment,
   likeComment,
   deleteComment,
+  getAllPosts,
 };
