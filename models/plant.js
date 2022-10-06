@@ -18,6 +18,10 @@ const plantSchema = new Schema(
       enum: plantTypes,
       required: true,
     },
+    img: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

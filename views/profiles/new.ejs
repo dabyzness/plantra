@@ -1,7 +1,20 @@
 <%- include('../partials/html-head') %> <%- include('../partials/nav') %>
 
 <main>
-  <form action="/profiles/<%= profile.username %>?_method=PUT" method="post">
+  <form
+    action="/profiles/<%= profile.username %>?_method=PUT"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <label for="image">Upload image</label>
+    <input
+      type="file"
+      class="form-control-file"
+      name="image"
+      id="image"
+      required
+    />
+
     <label for="plantNickname">Nickname:</label>
     <input type="text" name="nickname" id="plantNickname" />
 

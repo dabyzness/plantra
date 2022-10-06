@@ -4,8 +4,6 @@ import * as profilesCtrl from "../controllers/profiles.js";
 
 const router = Router();
 
-router.post("/:username", isLoggedIn, profilesCtrl.test);
-
 router.get("/:username", isLoggedIn, profilesCtrl.index);
 
 //Possibly delete
@@ -24,6 +22,8 @@ router.get("/:username/calendar", isLoggedIn, profilesCtrl.viewCalendar);
 router.put("/:username", isLoggedIn, profilesCtrl.addPlantToCollection);
 
 router.put("/:profileId/newProfile", isLoggedIn, profilesCtrl.create);
+
+router.put("/:username/plants/:plantId", isLoggedIn, profilesCtrl.addImage);
 
 router.post(
   "/:username/plants/:plantId/addNote",

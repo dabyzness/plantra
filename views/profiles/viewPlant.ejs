@@ -1,6 +1,10 @@
 <%- include('../partials/html-head') %> <%- include('../partials/nav') %>
 
 <main>
+  <% plant.img.forEach(image => { %>
+  <img src="<%= image %>" alt="avatar" />
+  <% }) %>
+
   <h1><%= plant.plant.name %></h1>
 
   <% if (plant.nickname) { %>
@@ -15,6 +19,23 @@
     Watering Schedule: Every <%= plant.wateringSchedule %> <%=
     plant.wateringSchedule === 1 ? 'day' : 'days' %>
   </p>
+
+  <form
+    action="/profiles/<%= user.profile.username %>/plants/<%= plant._id %>?_method=PUT"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <label for="image">Add another picture!</label>
+    <input
+      type="file"
+      class="form-control-file"
+      name="image"
+      id="image"
+      required
+    />
+    <button type="submit"></button>
+  </form>
+
   <form
     action="/profiles/<%= user.profile.username %>/plants/<%= plant._id %>?_method=DELETE"
     method="post"

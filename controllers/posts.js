@@ -1,37 +1,54 @@
 import { Post } from "../models/post.js";
 import { Profile } from "../models/profile.js";
+import { upload } from "../services/imageUpload.js";
+
+const singleUpload = upload.single("image");
 
 function newPost(req, res) {
   res.render("posts/new", { title: "New Post" });
 }
 
 function create(req, res) {
-  req.body.owner = req.user.profile._id;
+  singleUpload(req, res, function (err) {
+    if (err) {
+      return res.json({
+        success: false,
+        errors: {
+          title: "Image Upload Error",
+          detail: err.message,
+          error: err,
+        },
+      });
+    }
 
-  Post.create(req.body)
-    .then((post) => {
-      Profile.findById(post.owner)
-        .then((profile) => {
-          profile.posts.push(post._id);
-          profile
-            .save()
-            .then(() => {
-              res.redirect(`/posts/${post._id}`);
-            })
-            .catch((err) => {
-              console.log(err);
-              res.redirect(`/profiles/${req.user.profile.username}`);
-            });
-        })
-        .catch((err) => {
-          console.log(err);
-          res.redirect(`/profiles/${req.user.profile.username}`);
-        });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.redirect(`/profiles/${req.user.profile.username}`);
-    });
+    req.body.owner = req.user.profile._id;
+    req.body.img = req.file.location;
+
+    Post.create(req.body)
+      .then((post) => {
+        Profile.findById(post.owner)
+          .then((profile) => {
+            profile.posts.push(post._id);
+            profile
+              .save()
+              .then(() => {
+                res.redirect(`/posts/${post._id}`);
+              })
+              .catch((err) => {
+                console.log(err);
+                res.redirect(`/profiles/${req.user.profile.username}`);
+              });
+          })
+          .catch((err) => {
+            console.log(err);
+            res.redirect(`/profiles/${req.user.profile.username}`);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.redirect(`/profiles/${req.user.profile.username}`);
+      });
+  });
 }
 
 function view(req, res) {

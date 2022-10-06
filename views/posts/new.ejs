@@ -3,9 +3,19 @@
 <main>
   <img src="/assets/images/post.jpg" alt="postPicture" />
 
-  <form action="/posts" method="post">
+  <form action="/posts" method="post" enctype="multipart/form-data">
+    <label for="image">Upload image</label>
+    <input
+      type="file"
+      class="form-control-file"
+      name="image"
+      id="image"
+      required
+    />
+
     <label for="description"></label>
     <input type="text" name="description" id="description" />
+
     <button type="submit">Create Post</button>
   </form>
 </main>

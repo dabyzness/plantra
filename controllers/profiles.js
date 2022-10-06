@@ -66,23 +66,38 @@ function addPlantToCollectionView(req, res) {
 }
 
 function addPlantToCollection(req, res) {
-  Profile.findOne({ username: req.params.username })
-    .then((profile) => {
-      profile.plants.push(req.body);
-      profile
-        .save()
-        .then(() => {
-          res.redirect(`/profiles/${profile.username}/plants`);
-        })
-        .catch((err) => {
-          console.log(err);
-          res.redirect(`/profiles/${profile.username}`);
-        });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.redirect(`/profiles/${req.params.username}`);
-    });
+  singleUpload(req, res, function (err) {
+    if (err) {
+      return res.json({
+        success: false,
+        errors: {
+          title: "Image Upload Error",
+          detail: err.message,
+          error: err,
+        },
+      });
+    }
+
+    req.body.img = [req.file.location];
+
+    Profile.findOne({ username: req.params.username })
+      .then((profile) => {
+        profile.plants.push(req.body);
+        profile
+          .save()
+          .then(() => {
+            res.redirect(`/profiles/${profile.username}/plants`);
+          })
+          .catch((err) => {
+            console.log(err);
+            res.redirect(`/profiles/${profile.username}`);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.redirect(`/profiles/${req.params.username}`);
+      });
+  });
 }
 
 function waterPlant(req, res) {
@@ -154,16 +169,6 @@ function create(req, res) {
         res.redirect("/");
       });
   });
-
-  // Profile.findOneAndUpdate({ _id: req.params.profileId }, req.body)
-  //   .then((profile) => {
-  //     console.log(profile);
-  //     res.redirect("/");
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //     res.redirect("/");
-  //   });
 }
 
 function view(req, res) {
@@ -316,6 +321,49 @@ function deletePlant(req, res) {
     });
 }
 
+function addImage(req, res) {
+  if (req.user.profile.username !== req.params.username) {
+    res.redirect("/");
+  }
+
+  singleUpload(req, res, function (err) {
+    if (err) {
+      return res.json({
+        success: false,
+        errors: {
+          title: "Image Upload Error",
+          detail: err.message,
+          error: err,
+        },
+      });
+    }
+
+    Profile.findOne({ username: req.params.username })
+      .then((profile) => {
+        const plant = profile.plants.find((plant) =>
+          plant._id.equals(req.params.plantId)
+        );
+
+        plant.img.unshift(req.file.location);
+        profile
+          .save()
+          .then(() => {
+            res.redirect(`/profiles/${req.params.username}/plant/${plant._id}`);
+          })
+          .catch((err) => {
+            console.log(err);
+            res.redirect(`/profiles/${req.params.username}/plant/${plant._id}`);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.redirect(
+          `/profiles/${req.params.username}/plant/${req.params.plantId}`
+        );
+      });
+  });
+}
+
 export {
   index,
   addPlantToCollectionView,
@@ -328,5 +376,5 @@ export {
   getUserInfo,
   viewCalendar,
   deletePlant as delete,
-  test,
+  addImage,
 };
