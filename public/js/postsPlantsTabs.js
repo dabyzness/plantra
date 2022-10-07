@@ -4,7 +4,6 @@ tabEls[0].addEventListener("click", handleClick);
 tabEls[1].addEventListener("click", handleClick);
 
 function handleClick(e) {
-  console.log(e.target);
   tabEls.forEach((tab) => {
     tab.classList.remove("active");
   });

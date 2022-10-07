@@ -1,55 +1,74 @@
 <%- include('../partials/html-head') %> <%- include('../partials/nav') %>
 
 <main>
-  <img class="post-image" src="<%= post.owner.avatar %>" alt="avatar" />
-  <a href="/profiles/<%= post.owner.username %>"><%= post.owner.username %></a>
-  <img src="<%= post.img %> " alt="postPicture" />
-  <p><%= post.descrition %></p>
-
-  <form action="/posts/<%= post._id %>/like?_method=PATCH" method="post">
-    <button type="submit">
-      <%= post.likes %> <i class="fas fa-light fa-heart"></i>
-    </button>
-  </form>
-
-  <% post.comments.forEach(comment => { %>
-  <div class="comment">
-    <div class="comment-header">
-      <img src="<%= comment.owner.avatar %>" alt="avatar" />
-      <a href="/profiles/<%= comment.owner.username %>"
-        ><%= comment.owner.username %></a
-      >
-    </div>
-    <div class="comment-body">
-      <p><%= comment.data %></p>
-      <form
-        action="/posts/<%= post._id %>/comment/<%= comment._id %>?_method=PATCH"
-        method="post"
-      >
-        <button type="submit">
-          <%= comment.likes %> <i class="fas fa-light fa-heart"></i>
-        </button>
-      </form>
-      <% if (user.profile._id.equals(comment.owner._id)) { %>
-      <div class="edit">
-        <i class="fas fa-solid fa-pen"></i>
+  <div class="feed-container">
+    <div class="post-container">
+      <div class="post-header">
+        <img class="post-image" src="<%= post.owner.avatar %>" alt="avatar" />
+        <a href="/profiles/<%= post.owner.username %>"
+          ><%= post.owner.username %></a
+        >
       </div>
 
-      <!-- <div class="delete"><i class="fas fa-solid fa-trash"></i></div> -->
-      <form
-        action="/posts/<%= post._id %>/comment/<%= comment._id %>?_method=DELETE"
-        method="post"
-      >
-        <button type="submit"><i class="fas fa-solid fa-trash"></i></button>
-      </form>
-      <% } %>
-    </div>
-  </div>
-  <% }) %>
+      <div class="post-body">
+        <img class="post-image" src="<%= post.img %>" alt="postPicture" />
+        <p><%= post.descrition %></p>
+      </div>
 
-  <form action="/posts/<%= post._id %>/comment?_method=PATCH" method="post">
-    <input type="text" name="data" placeholder="Comment" autocomplete="off" />
-    <button type="submit">Add comment</button>
-  </form>
+      <div class="post-footer">
+        <form action="/posts/<%= post._id %>/like?_method=PATCH" method="post">
+          <button style="background-color: white" type="submit">
+            <%= post.likes %> <i class="fas fa-light fa-heart"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <% post.comments.forEach(comment => { %>
+    <div class="comment">
+      <div class="comment-header">
+        <img src="<%= comment.owner.avatar %>" alt="avatar" />
+        <a href="/profiles/<%= comment.owner.username %>"
+          ><%= comment.owner.username %></a
+        >
+      </div>
+      <div class="comment-body">
+        <p><%= comment.data %></p>
+        <form
+          style="margin-left: auto; margin-right: 0.5rem"
+          action="/posts/<%= post._id %>/comment/<%= comment._id %>?_method=PATCH"
+          method="post"
+        >
+          <button style="background-color: rgb(231, 228, 228)" type="submit">
+            <%= comment.likes %> <i class="fas fa-light fa-heart"></i>
+          </button>
+        </form>
+        <% if (user.profile._id.equals(comment.owner._id)) { %>
+        <!-- Add Edit functionality -->
+
+        <!-- <div class="delete"><i class="fas fa-solid fa-trash"></i></div> -->
+        <form
+          style="margin-right: 1rem"
+          action="/posts/<%= post._id %>/comment/<%= comment._id %>?_method=DELETE"
+          method="post"
+        >
+          <button style="background-color: rgb(231, 228, 228)" type="submit">
+            <i class="fas fa-solid fa-trash"></i>
+          </button>
+        </form>
+        <% } %>
+      </div>
+    </div>
+    <% }) %>
+
+    <form
+      style="margin-top: 1rem"
+      action="/posts/<%= post._id %>/comment?_method=PATCH"
+      method="post"
+    >
+      <input type="text" name="data" placeholder="Comment" autocomplete="off" />
+      <button type="submit">Add comment</button>
+    </form>
+  </div>
 </main>
 <%- include('../partials/footer') %>

@@ -4,25 +4,6 @@ import { upload } from "../services/imageUpload.js";
 
 const singleUpload = upload.single("image");
 
-function test(req, res) {
-  singleUpload(req, res, function (err) {
-    if (err) {
-      return res.json({
-        success: false,
-        errors: {
-          title: "Image Upload Error",
-          detail: err.message,
-          error: err,
-        },
-      });
-    }
-
-    console.log(req.file.location);
-
-    Profile.findOne({ username: req.params.username }).then((profile) => {});
-  });
-}
-
 function index(req, res) {
   Profile.findOne({ username: req.params.username })
     .populate([
@@ -33,6 +14,8 @@ function index(req, res) {
         },
       },
       { path: "posts" },
+      { path: "followers" },
+      { path: "following" },
     ])
     .then((profile) => {
       res.render("profiles/index", { title: "Your Profile", profile });
@@ -104,11 +87,22 @@ function waterPlant(req, res) {
   Profile.findOne({ username: req.params.username })
     .populate("plants")
     .then((profile) => {
-      profile.plants[
-        profile.plants.findIndex((plant) =>
-          plant._id.equals(req.params.plantIdInColl)
-        )
-      ].isWatered = true;
+      const plant =
+        profile.plants[
+          profile.plants.findIndex((plant) =>
+            plant._id.equals(req.params.plantIdInColl)
+          )
+        ];
+      plant.isWatered = true;
+
+      plant.lastWatered = new Date();
+
+      plant.nextWater = new Date().setDate(
+        new Date().getDate() + plant.wateringSchedule
+      );
+
+      plant.notes.push({});
+
       profile
         .save()
         .then(() => {

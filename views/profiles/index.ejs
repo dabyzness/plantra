@@ -1,51 +1,54 @@
 <%- include('../partials/html-head') %>
 <script defer src="/js/viewTile.js"></script>
-<script defer src="/js/editProfile.js"></script>
+
+<% if (user.profile._id.equals(profile._id)) { %>
+  <script defer src="/js/editProfile.js"></script>
+<% } %>
 <script defer src="/js/postsPlantsTabs.js"></script>
 <%- include('../partials/nav') %>
 
 <main>
   <div class="profile-container">
-    <img class="profile-picture" src="<%= profile.avatar %>" alt="avatar" />
+    <div class="pc-header">
+      <img class="profile-picture" src="<%= profile.avatar %>" alt="profile" />
     <span id="username"><%= profile.username %></span>
     <% if (user.profile._id.equals(profile._id)) { %>
-    <i class="fas fa-solid fa-pen"></i>
+    <i class="fas fa-solid fa-pen" title="Edit Username"></i>
     <% } %>
 
       
     <% if (!user.profile._id.equals(profile._id)) { %>
 
-      <% if (profile.followers.includes(user.profile._id)) { %>
+      <% if (profile.followers.find(profile => profile.username === user.profile.username)) { %>
         <button>FOLLOWING</button></form>
       <% } else { %>
 
-      <form action="/profiles/<%= profile.username %>/follow?_method=PUT" method="post"><button type="submit">FOLLOW</button></form>
+      <form action="/profiles/<%= profile.username %>/follow?_method=PUT" method="post" style="display:inline;"><button type="submit">FOLLOW</button></form>
 
       <% } %>
     <% } %>
+    </div>
 
+    <div class="pc-body">
+      <span>
+        Bio <% if (user.profile._id.equals(profile._id)) { %>
+        <i class="fas fa-solid fa-pen" title="Edit Bio"></i>
+        <% } %>
+        </span>
+  
+      <p id="bio" class="bio"><%= profile.bio %></p>
+    </div>
 
-    <!-- Add Bio field -->
-    <h4>
-      Bio <% if (user.profile._id.equals(profile._id)) { %>
-      <i class="fas fa-solid fa-pen"></i>
-      <% } %>
-    </h4>
-
-    <p id="bio" class="bio"><%= profile.bio %></p>
-    <!-- Add Zone -->
-    <!--  -->
-    <!--  -->
-    <!--  -->
-    <form
+    <div class="pc-footer">
+      <form
       style="display: inline"
       action="/profiles/<%= profile.username %>/plants"
       method="get"
     >
       <p style="display: inline">
-        <%= profile.plants.length %> Plants <% if
+        <%= profile.plants.length %> <i class="fas fa-solid fa-spa" title="Plants"></i> <% if
         (user.profile._id.equals(profile._id)) { %>
-        <button type="submit"><i class="fas fa-solid fa-plus"></i></button>
+        <button type="submit"><i class="fas fa-solid fa-plus" title="Add new plant to coll."></i></button>
 
         <% } %>
       </p>
@@ -63,7 +66,16 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body"></div>
+          <div class="modal-body">
+            <% profile.followers.forEach((follower) => { %>
+
+              <div class="follower">
+                <img src="<%= follower.avatar %>" alt="avatar">
+                <a href="/profiles/<%= follower.username %>"><%= follower.username %></a>
+              </div>
+
+              <% }) %>
+            </div>
         </div>
       </div>
     </div>
@@ -76,7 +88,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Followers</h5>
+            <h5 class="modal-title">Following</h5>
             <button
               type="button"
               class="btn-close"
@@ -84,7 +96,14 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body"></div>
+          <div class="modal-body">
+            <% profile.following.forEach((following) => { %>
+              <div class="following">
+                <img src="<%= following.avatar %>" alt="avatar">
+                <a href="/profiles/<%= following.username %>"><%= following.username %></a>
+              </div>
+
+            <% }) %></div>
         </div>
       </div>
     </div>
@@ -94,18 +113,20 @@
     </button>
     </div>
 
+    </div>
+
   <div class="posts-plants">
     <ul class="tab-group">
       <li class="tab"><a class="active">Posts</a></li>
-      <li class="tab"><a>Plants</a></li>
+      <li class="tab"><a class>Plants</a></li>
     </ul>
   </div>
 
   <div class="tile-container">
     <% profile.posts.forEach(post => { %>
 
-    <div id="<%= post._id %>" class="tile">
-      <img src="<%= post.img %>" alt="" />
+    <div  class="tile post">
+      <img id="<%= post._id %>" src="<%= post.img %>" alt="" />
     </div>
 
     <% }) %>
@@ -113,22 +134,14 @@
 
   <div style="display: none" class="tile-container">
     <% profile.plants.forEach(plant => { %>
-    <div id="<%= plant._id %>" class="tile" owner="<%= profile.username %>">
-      <a href="/profiles/<%= profile.username %>/plants/<%= plant._id %>"
-        ><%= plant.nickname %></a
-      >
-      <p><%= plant.plant.name %></p>
+    <div  class="tile plant" owner="<%= profile.username %>">
+      
+      <img id="<%= plant._id %>" src="<%= plant.img[0] %>" alt="" />
 
-      <img src="<%= plant.img[0] %>" alt="" />
-      <form
-        action="/profiles/<%= profile.username %>/water/<%= plant._id %>?_method=PATCH"
-        method="post"
-      >
-        <button type="submit">WATER</button>
-      </form>
     </div>
     <% }) %>
   </div>
+
 </main>
 
 <%- include('../partials/footer') %>

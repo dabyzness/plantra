@@ -1,43 +1,60 @@
 <%- include('../partials/html-head') %> <%- include('../partials/nav') %>
 
 <main>
-  <form
-    action="/profiles/<%= profile.username %>?_method=PUT"
-    method="post"
-    enctype="multipart/form-data"
-  >
-    <label for="image">Upload image</label>
-    <input
-      type="file"
-      class="form-control-file"
-      name="image"
-      id="image"
-      required
-    />
+  <div class="feed-container">
+    <div class="post-container">
+      <div class="post-header">
+        <h1>Add a plant to your collection!</h1>
+        <img
+          style="margin: 0 auto"
+          src="/assets/images/placeholder.png"
+          alt="placeholder"
+        />
+      </div>
 
-    <label for="plantNickname">Nickname:</label>
-    <input type="text" name="nickname" id="plantNickname" />
+      <div class="post-body">
+        <form style="margin-top: 1rem"
+          action="/profiles/<%= profile.username %>?_method=PUT"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <label for="image">Upload image --> JPG, JPEG, PNG</label>
+          <input
+          style="margin-top: 1rem"
+            type="file"
+            class="form-control-file"
+            name="image"
+            id="image"
+            required
+          />
 
-    <label for="wateringSchedule">Set a watering schedule:</label>
-    <select name="wateringSchedule" id="wateringSchedule">
-      <% [1,2,3,4,5,6,7,8,9,10].forEach(day => { %>
-      <option value="<%= day %>">
-        <%= day > 1 ? `${day} days` : `${day} day` %>
-      </option>
-      <% }) %> <% [14, 21, 28].forEach(day => { %>
-      <option value="<%= day %>"><%= `${day/7} weeks` %></option>
-      <% }) %>
-    </select>
+          <label for="plantNickname">Nickname:</label>
+          <input style="margin-top: 1rem" type="text" name="nickname" id="plantNickname" autocomplete="off" />
 
-    <label for="plant">Choose Plant</label>
-    <select name="plant" id="plant">
-      <% allPlants.forEach(plant => { %>
-      <option value="<%= plant._id %>"><%= plant.name %></option>
-      <% }) %>
-    </select>
+          <label for="wateringSchedule">Set a watering schedule:</label>
+          <select style="margin-top: 1rem" name="wateringSchedule" id="wateringSchedule">
+            <% [1,2,3,4,5,6,7,8,9,10].forEach(day => { %>
+            <option value="<%= day %>" <%= day === 7 ? "selected" : "" %> >
+              <%= day > 1 ? `${day} days` : `${day} day` %>
+            </option>
+            <% }) %> <% [14, 21, 28].forEach(day => { %>
+            <option value="<%= day %>"><%= `${day/7} weeks` %></option>
+            <% }) %>
+          </select>
 
-    <button type="submit">Add Plant</button>
-  </form>
+          <label for="plant">Choose Plant</label>
+          <select style="margin-top: 1rem" name="plant" id="plant">
+            <% allPlants.forEach(plant => { %>
+            <option value="<%= plant._id %>"><%= plant.name %></option>
+            <% }) %>
+          </select>
+
+          <button style="display: block; margin: 0 auto; margin-top: 1rem; background-color: var(--light-green); color: white; border-radius: 5%;" type="submit">Add Plant</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <%- include('../partials/footer') %>

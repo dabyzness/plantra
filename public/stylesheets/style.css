@@ -9,7 +9,7 @@ html {
   --taupe: #7d6167;
   --rose: #fbf9ff;
   --dark-green: #0c3823;
-  --light-green: #c2eabd;
+  --light-green: #30694b;
 }
 
 /* The Universal Selector */
@@ -22,12 +22,12 @@ html {
 }
 
 body {
+  /* background-color: black; */
   background-color: var(--rose);
   color: black;
   /* Use a system font, if none are available use any found sans-sarif font */
   font-family: system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
     "Helvetica Neue", sans-serif;
-  /* font-family: "Nesans"; */
   font-weight: bold;
   margin: 0;
   display: flex;
@@ -41,40 +41,111 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* padding: 10px; */
   height: 60px;
   width: 100%;
 }
 
+textarea {
+  resize: none;
+}
+
+button {
+  border: none;
+  background-color: var(--rose);
+}
+
+a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pc-header,
+.pc-body {
+  padding-left: 1rem;
+}
+
+.pc-footer {
+  align-self: center;
+  font-size: 1.5rem;
+}
+
+h4 {
+  width: 90vw;
+}
+
 .nav-item {
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  text-decoration: none;
+  color: white;
+}
+
+.nav-item > .fa-plus {
+  color: white;
+  font-size: 2rem;
+  margin-left: 0.5rem;
+}
+
+.fa-calendar-check {
+  color: white;
+  font-size: 1.5rem;
+  margin-left: 0.75rem;
+}
+
+.fa-leaf {
+  font-size: 1.5rem;
+  margin-left: 0.75rem;
+}
+
+.nav-item > button {
+  background-color: var(--dark-green);
+  color: white;
+  font-size: 2rem;
+  margin-right: 1rem;
+  margin-left: 0.5rem;
+}
+
+.profile-link {
+  margin-left: 1rem;
+  margin-right: -0.5rem;
 }
 
 #logo {
   font-family: "Nesans";
   font-size: 3rem;
   margin-right: auto;
-  margin-left: 1rem;
+  margin-left: 0;
 }
 
 main {
   height: calc(100% - 60px);
   width: 100%;
-  /* display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column; */
 }
 
-/* .right {
-  margin-left: auto;
-} */
+.profile-container {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile-container > div {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.pc-header > img {
+  height: 75px;
+  width: 75px;
+  border-radius: 100%;
+}
 
 .tile-container {
-  height: 80%;
+  height: calc(100% - 300px - 86px);
+  max-height: calc(100% - 300px - 86px);
   width: 100%;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  /* justify-content: center; */
   flex-wrap: wrap;
   gap: 0.5rem;
   overflow-y: scroll;
@@ -88,13 +159,32 @@ main {
 }
 
 .tile {
+  margin: calc(10vw / 12);
   background-color: white;
   color: black;
+  height: 30vw;
+  width: 30vw;
 }
 
 .tile > img {
   height: 30vw;
   width: 30vw;
+  object-fit: cover;
+}
+
+button > .fa-plus {
+  color: var(--light-green);
+}
+
+.fa-check {
+  color: var(--light-green);
+  transition: 0.5s;
+}
+
+.fa-check:hover {
+  color: var(--dark-green);
+  transform: scale(125%);
+  transition: 0.5s;
 }
 
 img[alt="avatar"] {
@@ -102,6 +192,11 @@ img[alt="avatar"] {
   height: 50px;
   border: 2px solid var(--rose);
   border-radius: 100%;
+}
+
+img[alt="placeholder"] {
+  width: 72vw;
+  height: auto;
 }
 
 nav > img {
@@ -118,21 +213,24 @@ button > img {
 }
 
 .fa-pen {
-  color: blue;
+  color: var(--light-green);
+  transition: 0.5s;
+}
+
+.fa-pen:hover {
+  color: var(--dark-green);
+  cursor: pointer;
+  transform: scale(125%);
+  transition: 0.5s;
 }
 
 .profile-container {
   margin-right: auto;
-  margin-left: 1rem;
 }
 
 .posts-plants {
   width: 100%;
 }
-
-/* .tab-group > li {
-  width: 49%;
-} */
 
 li > a {
   display: block;
@@ -150,7 +248,7 @@ li > a {
 }
 
 li > a:hover {
-  background-color: #146e56;
+  background-color: var(--dark-green);
   color: white;
 }
 
@@ -162,7 +260,7 @@ li > a:hover {
 }
 
 .active {
-  background: #1ab188;
+  background: var(--light-green);
   color: white;
 }
 
@@ -174,6 +272,7 @@ li > a:hover {
 .feed-container {
   margin: 0 auto 0 auto;
   overflow-y: scroll;
+  overflow-x: visible;
   height: 100%;
   width: 80%;
   scroll-behavior: smooth;
@@ -183,4 +282,48 @@ li > a:hover {
 
 .feed-container::-webkit-scrollbar {
   display: none;
+}
+
+/* Post-Container */
+
+.post-container {
+  margin-top: 2rem;
+  padding: 1rem 0;
+  /* border: 1px solid black; */
+  border-radius: 5%;
+  background: white;
+  box-shadow: 0 5px 5px var(--light-green);
+}
+
+.post-header {
+  margin-left: 1rem;
+}
+
+.post-body {
+  text-align: center;
+}
+
+.post-footer {
+  margin-left: 1rem;
+}
+
+.calendar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.comment {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(231, 228, 228);
+  border-radius: 5%;
+}
+
+.comment-body {
+  display: flex;
+  flex-direction: row;
 }

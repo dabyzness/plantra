@@ -22,12 +22,12 @@ async function getPosts() {
     postHead.classList.add("post-header");
     postHead.innerHTML = `
     <img src="${post.owner.avatar}" alt="avatar"/>
-    <a href="/profile/${post.owner.username}">${post.owner.username}</a>`;
+    <a href="/profiles/${post.owner.username}">${post.owner.username}</a>`;
 
     const postBody = document.createElement("div");
     postBody.classList.add("post-body");
-    postBody.innerHTML = `
-    <img class="post-image" src="${post.img}" alt="" />
+    postBody.innerHTML = `<a href="/posts/${post._id}">
+    <img class="post-image" src="${post.img}" alt="" /></a>
     `;
 
     const postFoot = document.createElement("div");

@@ -1,22 +1,50 @@
 <%- include('../partials/html-head') %> <%- include('../partials/nav') %>
 
 <main>
-  <img src="/assets/images/post.jpg" alt="postPicture" />
+  <div class="feed-container">
+    <div class="post-container">
+      <div class="post-header">
+        <img
+          style="margin: 0 auto"
+          src="/assets/images/placeholder.png"
+          alt="placeholder"
+        />
+      </div>
 
-  <form action="/posts" method="post" enctype="multipart/form-data">
-    <label for="image">Upload image</label>
-    <input
-      type="file"
-      class="form-control-file"
-      name="image"
-      id="image"
-      required
-    />
+      <div class="post-body">
+        <form action="/posts" method="post" enctype="multipart/form-data">
+          <label for="image">Upload image --> JPG, JPEG, PNG</label>
+          <input
+            type="file"
+            class="form-control-file"
+            name="image"
+            id="image"
+            required
+          />
 
-    <label for="description"></label>
-    <input type="text" name="description" id="description" />
+          <textarea
+            name="description"
+            id="description"
+            placeholder="Caption"
+            cols="35"
+            rows="3"
+            maxLength="300"
+            style="margin-top: 1rem"
+          ></textarea>
 
-    <button type="submit">Create Post</button>
-  </form>
+          <button
+            style="
+              background-color: var(--light-green);
+              color: white;
+              border-radius: 5%;
+            "
+            type="submit"
+          >
+            Create Post
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
 </main>
 <%- include('../partials/footer') %>
