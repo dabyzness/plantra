@@ -8,7 +8,7 @@ Place image here
 
 Welcome to Plantra, a place to track and share your plants with the world. Set a watering schedule for your plants, check your calendar to see which plants you have to water, upload pictures of your plants and keep track of it's growth! View what others are posting and like and comment to see their plant collection!
 
-Try Plantra [here]()!
+Try Plantra [here](https://plantra.fly.dev/)!
 
 #
 
@@ -42,12 +42,12 @@ Click in the navigation pane to view all plants that are currently in the databa
 - AWS S3 Bucket
 - Bootstrap
 - Trello + Whimsical
-  - [Link to Wireframe]()
+  - [Link to Wireframe](https://trello.com/b/JdyZV25G/unit-2-project)
 
 ## Future Tasks
 
 - [ ] Responsive Design
-- [ ] Infinite Scroll
+- [x] Infinite Scroll
 - [ ] Admin Features
 - [ ] Nested Comments
 - [ ] Ability to view profiles/posts for Guest Users
