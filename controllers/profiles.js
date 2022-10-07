@@ -168,6 +168,11 @@ function create(req, res) {
 }
 
 function view(req, res) {
+  if (req.user.profile.username !== req.params.username) {
+    res.redirect(`/profiles/${req.params.username}`);
+    return;
+  }
+
   Profile.findOne({ username: req.params.username })
     .populate([
       {

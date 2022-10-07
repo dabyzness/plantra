@@ -57,7 +57,7 @@ const profileSchema = new Schema(
       minLength: 3,
       maxLength: 25,
       lowercase: true,
-      unique: true,
+      // unique: true,
     },
     bio: {
       type: String,

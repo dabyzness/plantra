@@ -1,6 +1,10 @@
 # PLANTRA
 
-Place image here
+<div style="height:30rem; width:auto; text-align:center;">
+
+<img src="./public/assets/images/preview1.PNG" />
+
+</div>
 
 #
 
