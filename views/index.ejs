@@ -1,4 +1,7 @@
-<%- include('./partials/html-head') %> <% if (user?.profile.username) { %>
+<%- include('./partials/html-head') %> <% if (!user) { %>
+<script defer src="/js/swiper.js"></script>
+<% } %> <% if (user?.profile.username) { %>
+
 <script defer src="/js/feed.js"></script>
 <% } %> <%- include('./partials/nav') %>
 
@@ -6,79 +9,146 @@
   <% if (!user) { %>
 
   <div class="login">
-    <!-- Website Name -->
-    <!-- LOGO -->
-    <!-- LOGIN BUTTON -->
-    <!-- MAYBE GUEST BUTTON -->
-    HELLO USER
+    <div class="login-header">
+      <h1>plantra</h1>
+    </div>
+
+    <div class="login-body">
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img
+              class="post-image"
+              src="/assets/images/preview1.PNG"
+              alt="preview"
+            />
+          </div>
+          <div class="swiper-slide">
+            <img
+              class="post-image"
+              src="/assets/images/preview2.PNG"
+              alt="preview"
+            />
+          </div>
+          <div class="swiper-slide">
+            <img
+              class="post-image"
+              src="/assets/images/preview3.PNG"
+              alt="preview"
+            />
+          </div>
+          <div class="swiper-slide">
+            <img
+              class="post-image"
+              src="/assets/images/preview4.PNG"
+              alt="preview"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+    <div class="login-footer">
+      <a id="logo" class="nav-item" href="/">plantra</a>
+      <div
+        id="g_id_onload"
+        data-client_id="<%= googleClientID %>"
+        data-login_uri="/auth/google"
+        data-auto_prompt="false"
+      ></div>
+      <div
+        class="g_id_signin right"
+        data-type="standard"
+        data-size="large"
+        data-theme="outline"
+        data-text="sign_in_with"
+        data-shape="rectangular"
+        data-logo_alignment="left"
+      ></div>
+    </div>
   </div>
 
   <% } else if(!user.profile.username) { %>
+  <div class="sign-up">
+    <h1>Thank you for signing up for Plantra!</h1>
+    <h3>Let's get you started with a profile:</h3>
 
-  <h1>Thank you for signing up for Plantra!</h1>
-  <h2>Let's get you started with your profile:</h2>
+    <img src="/assets/images/default.jpg" alt="placeholder" />
 
-  <form
-    action="/profiles/<%= user.profile._id %>/newProfile?_method=PUT"
-    method="post"
-    enctype="multipart/form-data"
-  >
-    <label for="image">Upload picture</label>
-    <input type="file" class="form-control-file" name="image" id="image" />
+    <form
+      action="/profiles/<%= user.profile._id %>/newProfile?_method=PUT"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <label for="image">Upload picture --> JPG, JPEG, PNG</label>
+      <input type="file" class="form-control-file" name="image" id="image" />
 
-    <label for="username">Username</label>
-    <input
-      type="text"
-      name="username"
-      id="username"
-      minLength="3"
-      maxLength="25"
-      placeholder="Enter Username"
-      autocomplete="off"
-    />
+      <!-- <label for="username">Username</label> -->
+      <input
+        style="display: block"
+        type="text"
+        name="username"
+        id="username"
+        minLength="3"
+        maxLength="25"
+        placeholder="Enter Username"
+        autocomplete="off"
+      />
 
-    <label for="bio">Bio</label>
-    <textarea
-      name="bio"
-      id="bio"
-      cols="20"
-      rows="4"
-      placeholder="Tell us a little bit about yourself"
-      autocomplete="off"
-    ></textarea>
+      <!-- <label for="bio">Bio</label> -->
+      <textarea
+        style="display: block"
+        name="bio"
+        id="bio"
+        cols="20"
+        rows="4"
+        placeholder="Tell us a little bit about yourself"
+        autocomplete="off"
+      ></textarea>
 
-    <label for="zone">Plant Hardiness Zone</label>
-    <select name="zone" id="zone">
-      <option value="1a">1a</option>
-      <option value="1b">1b</option>
-      <option value="2a">2a</option>
-      <option value="2b">2b</option>
-      <option value="3a">3a</option>
-      <option value="3b">3b</option>
-      <option value="4a">4a</option>
-      <option value="4b">4b</option>
-      <option value="5a">5a</option>
-      <option value="5b">5b</option>
-      <option value="6a">6a</option>
-      <option value="6b">6b</option>
-      <option value="7a">7a</option>
-      <option value="7b">7b</option>
-      <option value="8a">8a</option>
-      <option value="8b">8b</option>
-      <option value="9a">9a</option>
-      <option value="9b">9b</option>
-      <option value="10a">10a</option>
-      <option value="10b">10b</option>
-      <option value="11a">11a</option>
-      <option value="11b">11b</option>
-      <option value="12a">12a</option>
-      <option value="12b">12b</option>
-      <option value="13a">13a</option>
-      <option value="13b">13b</option>
-    </select>
+      <!-- <label for="zone">Plant Hardiness Zone</label> -->
+      <select style="display: block" name="zone" id="zone">
+        <option value="1a">1a</option>
+        <option value="1b">1b</option>
+        <option value="2a">2a</option>
+        <option value="2b">2b</option>
+        <option value="3a">3a</option>
+        <option value="3b">3b</option>
+        <option value="4a">4a</option>
+        <option value="4b">4b</option>
+        <option value="5a">5a</option>
+        <option value="5b">5b</option>
+        <option value="6a">6a</option>
+        <option value="6b">6b</option>
+        <option value="7a">7a</option>
+        <option value="7b">7b</option>
+        <option value="8a">8a</option>
+        <option value="8b">8b</option>
+        <option value="9a">9a</option>
+        <option value="9b">9b</option>
+        <option value="10a">10a</option>
+        <option value="10b">10b</option>
+        <option value="11a">11a</option>
+        <option value="11b">11b</option>
+        <option value="12a">12a</option>
+        <option value="12b">12b</option>
+        <option value="13a">13a</option>
+        <option value="13b">13b</option>
+      </select>
 
-    <button type="submit">Create Profile</button>
-  </form>
+      <button
+        style="
+          background-color: var(--light-green);
+          color: white;
+          border-radius: 5%;
+        "
+        type="submit"
+      >
+        Create Profile
+      </button>
+    </form>
+  </div>
 
   <% } else { %>
 

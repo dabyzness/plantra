@@ -106,16 +106,18 @@ function waterPlant(req, res) {
       profile
         .save()
         .then(() => {
-          res.redirect(`/profiles/${profile.username}`);
+          res.redirect(`/profiles/${profile.username}/plants/${plant._id}`);
         })
         .catch((err) => {
           console.log(err);
-          res.redirect(`/profiles/${profile.username}`);
+          res.redirect(`/profiles/${profile.username}/plants/${plant._id}`);
         });
     })
     .catch((err) => {
       console.log(err);
-      res.redirect(`/profiles/${req.params.username}`);
+      res.redirect(
+        `/profiles/${req.params.username}/plants/${req.params.plantIdInColl}`
+      );
     });
 }
 
@@ -342,17 +344,21 @@ function addImage(req, res) {
         profile
           .save()
           .then(() => {
-            res.redirect(`/profiles/${req.params.username}/plant/${plant._id}`);
+            res.redirect(
+              `/profiles/${req.params.username}/plants/${plant._id}`
+            );
           })
           .catch((err) => {
             console.log(err);
-            res.redirect(`/profiles/${req.params.username}/plant/${plant._id}`);
+            res.redirect(
+              `/profiles/${req.params.username}/plants/${plant._id}`
+            );
           });
       })
       .catch((err) => {
         console.log(err);
         res.redirect(
-          `/profiles/${req.params.username}/plant/${req.params.plantId}`
+          `/profiles/${req.params.username}/plants/${req.params.plantId}`
         );
       });
   });

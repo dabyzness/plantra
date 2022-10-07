@@ -327,3 +327,49 @@ li > a:hover {
   display: flex;
   flex-direction: row;
 }
+
+.login-header > h1 {
+  font-family: "Nesans";
+  font-size: 4rem;
+}
+
+img[alt="preview"] {
+  width: auto;
+  height: 90vmin;
+}
+
+.login {
+  width: 100%;
+  height: calc(100% - 60px);
+  display: flex;
+  flex-direction: column;
+}
+
+.login-header,
+.login-footer {
+  margin-top: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 50%;
+  height: 50%;
+  object-fit: cover;
+}
+
+.sign-up {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.sign-up > h1,
+.sign-up > form > input,
+.sign-up > form > select,
+.sign-up > form > textarea {
+  margin: 1rem auto;
+}
